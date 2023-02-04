@@ -5,12 +5,12 @@ require("console.table");
 
 init();
 
-// Display logo text, load main prompts
+
+
 function init() {
+  // Displays the logo text
   const logoText = logo({ name: "Employee Manager" }).render();
-
-  console.log(logoText);
-
+// loads main prompts
   loadMainPrompts();
 }
 
@@ -19,62 +19,62 @@ function loadMainPrompts() {
     {
       type: "list",
       name: "choice",
-      message: "What would you like to do?",
+      message: "Please select an action",
       choices: [
         {
-          name: "View All Employees",
+          name: "View all employees",
           value: "VIEW_EMPLOYEES"
         },
         {
-          name: "View All Employees By Department",
+          name: "View all employees by Department",
           value: "VIEW_EMPLOYEES_BY_DEPARTMENT"
         },
         {
-          name: "View All Employees By Manager",
+          name: "View all employees by Manager",
           value: "VIEW_EMPLOYEES_BY_MANAGER"
         },
         {
-          name: "Add Employee",
+          name: "Add an Employee",
           value: "ADD_EMPLOYEE"
         },
         {
-          name: "Remove Employee",
+          name: "Remove an Employee",
           value: "REMOVE_EMPLOYEE"
         },
         {
-          name: "Update Employee Role",
+          name: "Change an Employee's Role",
           value: "UPDATE_EMPLOYEE_ROLE"
         },
         {
-          name: "Update Employee Manager",
+          name: "Change an Employee's Manager",
           value: "UPDATE_EMPLOYEE_MANAGER"
         },
         {
-          name: "View All Roles",
+          name: "View all Roles",
           value: "VIEW_ROLES"
         },
         {
-          name: "Add Role",
+          name: "Add a Role",
           value: "ADD_ROLE"
         },
         {
-          name: "Remove Role",
+          name: "Remove a Role",
           value: "REMOVE_ROLE"
         },
         {
-          name: "View All Departments",
+          name: "View all Departments",
           value: "VIEW_DEPARTMENTS"
         },
         {
-          name: "Add Department",
+          name: "Add a Department",
           value: "ADD_DEPARTMENT"
         },
         {
-          name: "Remove Department",
+          name: "Remove a Department",
           value: "REMOVE_DEPARTMENT"
         },
         {
-          name: "View Total Utilized Budget By Department",
+          name: "View Total Utilized Budget by Department",
           value: "VIEW_UTILIZED_BUDGET_BY_DEPARTMENT"
         },
         {
@@ -90,45 +90,59 @@ function loadMainPrompts() {
       case "VIEW_EMPLOYEES":
         viewEmployees();
         break;
+
       case "VIEW_EMPLOYEES_BY_DEPARTMENT":
         viewEmployeesByDepartment();
         break;
+
       case "VIEW_EMPLOYEES_BY_MANAGER":
         viewEmployeesByManager();
         break;
+
       case "ADD_EMPLOYEE":
         addEmployee();
         break;
+
       case "REMOVE_EMPLOYEE":
         removeEmployee();
         break;
+
       case "UPDATE_EMPLOYEE_ROLE":
         updateEmployeeRole();
         break;
+
       case "UPDATE_EMPLOYEE_MANAGER":
         updateEmployeeManager();
         break;
+
       case "VIEW_DEPARTMENTS":
         viewDepartments();
         break;
+
       case "ADD_DEPARTMENT":
         addDepartment();
         break;
+
       case "REMOVE_DEPARTMENT":
         removeDepartment();
         break;
+
       case "VIEW_UTILIZED_BUDGET_BY_DEPARTMENT":
         viewUtilizedBudgetByDepartment();
         break;
+
       case "VIEW_ROLES":
         viewRoles();
         break;
+
       case "ADD_ROLE":
         addRole();
         break;
+
       case "REMOVE_ROLE":
         removeRole();
         break;
+
       default:
         quit();
     }
@@ -221,7 +235,7 @@ function removeEmployee() {
         {
           type: "list",
           name: "employeeId",
-          message: "Which employee do you want to remove?",
+          message: "Which employee would you like to remove?",
           choices: employeeChoices
         }
       ])
@@ -245,7 +259,7 @@ function updateEmployeeRole() {
         {
           type: "list",
           name: "employeeId",
-          message: "Which employee's role do you want to update?",
+          message: "Which employee's role would you like to update?",
           choices: employeeChoices
         }
       ])
@@ -263,7 +277,7 @@ function updateEmployeeRole() {
                 {
                   type: "list",
                   name: "roleId",
-                  message: "Which role do you want to assign the selected employee?",
+                  message: "Which role would you like to assign the selected employee?",
                   choices: roleChoices
                 }
               ])
@@ -289,7 +303,7 @@ function updateEmployeeManager() {
         {
           type: "list",
           name: "employeeId",
-          message: "Which employee's manager do you want to update?",
+          message: "Which employee's manager would you like to update?",
           choices: employeeChoices
         }
       ])
@@ -308,7 +322,7 @@ function updateEmployeeManager() {
                   type: "list",
                   name: "managerId",
                   message:
-                    "Which employee do you want to set as manager for the selected employee?",
+                    "Which employee would you like to set as manager for the selected employee?",
                   choices: managerChoices
                 }
               ])
@@ -348,12 +362,12 @@ function addRole() {
         },
         {
           name: "salary",
-          message: "What is the salary of the role?"
+          message: "What is the role's salary?"
         },
         {
           type: "list",
           name: "department_id",
-          message: "Which department does the role belong to?",
+          message: "In which department is the role?",
           choices: departmentChoices
         }
       ])
@@ -380,12 +394,12 @@ function removeRole() {
           type: "list",
           name: "roleId",
           message:
-            "Which role do you want to remove? (Warning: This will also remove employees)",
+            "Which would you like to remove? (Warning!: This remove associated employees)",
           choices: roleChoices
         }
       ])
         .then(res => db.removeRole(res.roleId))
-        .then(() => console.log("Removed role from the database"))
+        .then(() => console.log("Removed role (and associated employees) from the database"))
         .then(() => loadMainPrompts())
     })
 }
@@ -406,7 +420,7 @@ function addDepartment() {
   prompt([
     {
       name: "name",
-      message: "What is the name of the department?"
+      message: "What is the department's name?"
     }
   ])
     .then(res => {
@@ -456,11 +470,11 @@ function addEmployee() {
   prompt([
     {
       name: "first_name",
-      message: "What is the employee's first name?"
+      message: "What's the employee's first name?"
     },
     {
       name: "last_name",
-      message: "What is the employee's last name?"
+      message: "What's the employee's last name?"
     }
   ])
     .then(res => {
@@ -497,7 +511,7 @@ function addEmployee() {
                   prompt({
                     type: "list",
                     name: "managerId",
-                    message: "Who is the employee's manager?",
+                    message: "Who's the employee's manager?",
                     choices: managerChoices
                   })
                     .then(res => {
@@ -522,6 +536,6 @@ function addEmployee() {
 
 // Exit the application
 function quit() {
-  console.log("Goodbye!");
+  console.log("Peace!");
   process.exit();
 }
