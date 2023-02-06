@@ -150,7 +150,7 @@ function loadMainPrompts() {
   )
 }
 
-// View all employees
+// View all employees function
 function viewEmployees() {
   db.findAllEmployees()
     .then(([rows]) => {
@@ -161,7 +161,7 @@ function viewEmployees() {
     .then(() => loadMainPrompts());
 }
 
-// View all employees that belong to a department
+// View all employees in a department
 function viewEmployeesByDepartment() {
   db.findAllDepartments()
     .then(([rows]) => {
@@ -189,7 +189,7 @@ function viewEmployeesByDepartment() {
     });
 }
 
-// View all employees that report to a specific manager
+// View all employees that work under a specific manager
 function viewEmployeesByManager() {
   db.findAllEmployees()
     .then(([rows]) => {
@@ -221,7 +221,7 @@ function viewEmployeesByManager() {
     });
 }
 
-// Delete an employee
+// Delete employee
 function removeEmployee() {
   db.findAllEmployees()
     .then(([rows]) => {
@@ -245,7 +245,7 @@ function removeEmployee() {
     })
 }
 
-// Update an employee's role
+// Update employee's role
 function updateEmployeeRole() {
   db.findAllEmployees()
     .then(([rows]) => {
@@ -289,7 +289,7 @@ function updateEmployeeRole() {
     })
 }
 
-// Update an employee's manager
+// Update employee's manager
 function updateEmployeeManager() {
   db.findAllEmployees()
     .then(([rows]) => {
@@ -345,7 +345,7 @@ function viewRoles() {
     .then(() => loadMainPrompts());
 }
 
-// Add a role
+// Add role
 function addRole() {
   db.findAllDepartments()
     .then(([rows]) => {
@@ -379,7 +379,7 @@ function addRole() {
     })
 }
 
-// Delete a role
+// Delete role
 function removeRole() {
   db.findAllRoles()
     .then(([rows]) => {
@@ -415,7 +415,7 @@ function viewDepartments() {
     .then(() => loadMainPrompts());
 }
 
-// Add a department
+// Add department
 function addDepartment() {
   prompt([
     {
@@ -431,7 +431,7 @@ function addDepartment() {
     })
 }
 
-// Delete a department
+// Delete department
 function removeDepartment() {
   db.findAllDepartments()
     .then(([rows]) => {
@@ -454,18 +454,7 @@ function removeDepartment() {
     })
 }
 
-// View all departments and show their total utilized department budget
-function viewUtilizedBudgetByDepartment() {
-  db.viewDepartmentBudgets()
-    .then(([rows]) => {
-      let departments = rows;
-      console.log("\n");
-      console.table(departments);
-    })
-    .then(() => loadMainPrompts());
-}
-
-// Add an employee
+// Add employee
 function addEmployee() {
   prompt([
     {
@@ -533,6 +522,18 @@ function addEmployee() {
         })
     })
 }
+
+// View all departments and show their total utilized department budget
+function viewUtilizedBudgetByDepartment() {
+  db.viewDepartmentBudgets()
+    .then(([rows]) => {
+      let departments = rows;
+      console.log("\n");
+      console.table(departments);
+    })
+    .then(() => loadMainPrompts());
+}
+
 
 // Exit the application
 function quit() {
